@@ -4,7 +4,7 @@ import time
 
 # --- CONFIGURAÇÕES ---
 # Pasta onde estão os PDFs originais (baixados pelo outro script)
-PASTA_ORIGEM = os.path.join(os.getcwd(), "manuais_pdf")
+PASTA_ORIGEM = os.path.join(os.getcwd(), "manuais_pdfs")
 
 # Pasta onde os PDFs comprimidos serão salvos
 PASTA_DESTINO = os.path.join(os.getcwd(), "manuais_otimizados")
