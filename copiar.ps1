@@ -1,0 +1,194 @@
+﻿$listaTexto = @"
+8 ano - Língua Portuguesa (8).pdf
+8 ano - Língua Portuguesa (9).pdf
+8 ano - Língua Portuguesa.pdf
+8 ano - Matemática (1).pdf
+8 ano - Matemática (10).pdf
+8 ano - Matemática (11).pdf
+8 ano - Matemática (12).pdf
+8 ano - Matemática (13).pdf
+8 ano - Matemática (14).pdf
+8 ano - Matemática (2).pdf
+8 ano - Matemática (3).pdf
+8 ano - Matemática (4).pdf
+8 ano - Matemática (5).pdf
+8 ano - Matemática (6).pdf
+8 ano - Religião em diálogo (4).pdf
+8 ano - Religião em diálogo.pdf
+8 ano - Reprodução.pdf
+8 ano - Às margens do agir responsabilidade comunicativa e ativismo digital.pdf
+9 ano - Arte (1).pdf
+9 ano - Arte (2).pdf
+9 ano - Arte (3).pdf
+9 ano - Arte (4).pdf
+9 ano - Arte.pdf
+9 ano - Atlas Geográfico.pdf
+9 ano - Cidadania Moral e Ética (1).pdf
+9 ano - Cidadania Moral e Ética (2).pdf
+9 ano - Cidadania Moral e Ética (3).pdf
+9 ano - Cidadania Moral e Ética (4).pdf
+9 ano - Cidadania Moral e Ética (5).pdf
+9 ano - Cidadania Moral e Ética.pdf
+9 ano - Ciências (1).pdf
+9 ano - Ciências (10).pdf
+9 ano - Ciências (11).pdf
+9 ano - Ciências (12).pdf
+9 ano - Ciências (13).pdf
+9 ano - Ciências (14).pdf
+9 ano - Ciências (15).pdf
+9 ano - Ciências (16).pdf
+9 ano - Ciências (17).pdf
+9 ano - Ciências (18).pdf
+9 ano - Ciências (19).pdf
+9 ano - Ciências (2).pdf
+9 ano - Ciências (20).pdf
+9 ano - Ciências (21).pdf
+9 ano - Ciências (22).pdf
+9 ano - Ciências (23).pdf
+9 ano - Ciências (24).pdf
+9 ano - Ciências (25).pdf
+9 ano - Ciências (26).pdf
+9 ano - Ciências (27).pdf
+9 ano - Ciências (28).pdf
+9 ano - Ciências (29).pdf
+9 ano - Ciências (3).pdf
+9 ano - Ciências (30).pdf
+9 ano - Ciências (4).pdf
+9 ano - Ciências (5).pdf
+9 ano - Ciências (6).pdf
+9 ano - Ciências (7).pdf
+9 ano - Ciências (8).pdf
+9 ano - Ciências (9).pdf
+9 ano - Ciências.pdf
+9 ano - Educação Física (1).pdf
+9 ano - Educação Física (2).pdf
+9 ano - Educação Física (3).pdf
+9 ano - Educação Física (4).pdf
+9 ano - Educação Física (5).pdf
+9 ano - Educação Física (6).pdf
+9 ano - Educação Física (7).pdf
+9 ano - Educação Física.pdf
+9 ano - Empreendedorismo e Finanças (1).pdf
+9 ano - Empreendedorismo e Finanças.pdf
+9 ano - Espanhol (1).pdf
+9 ano - Espanhol (2).pdf
+9 ano - Espanhol (3).pdf
+9 ano - Espanhol.pdf
+9 ano - Fabricação do gosto indústria cultural arte e experiência - LP.pdf
+9 ano - Geografia (1).pdf
+9 ano - Geografia (10).pdf
+9 ano - Geografia (11).pdf
+9 ano - Geografia (12).pdf
+9 ano - Geografia (13).pdf
+9 ano - Geografia (14).pdf
+9 ano - Geografia (15).pdf
+9 ano - Geografia (16).pdf
+9 ano - Geografia (17).pdf
+9 ano - Geografia (18).pdf
+9 ano - Geografia (19).pdf
+9 ano - Geografia (2).pdf
+9 ano - Geografia (20).pdf
+9 ano - Geografia (21).pdf
+9 ano - Geografia (22).pdf
+9 ano - Geografia (23).pdf
+9 ano - Geografia (24).pdf
+9 ano - Geografia (25).pdf
+9 ano - Geografia (26).pdf
+9 ano - Geografia (27).pdf
+9 ano - Geografia (28).pdf
+9 ano - Geografia (3).pdf
+9 ano - Geografia (4).pdf
+9 ano - Geografia (5).pdf
+9 ano - Geografia (6).pdf
+9 ano - Geografia (7).pdf
+9 ano - Geografia (8).pdf
+9 ano - Geografia (9).pdf
+9 ano - Geografia.pdf
+9 ano - Gramática (1).pdf
+9 ano - Gramática (2).pdf
+9 ano - Gramática.pdf
+9 ano - Gêneros Leitura e Análise (1).pdf
+9 ano - Gêneros Leitura e Análise (2).pdf
+9 ano - Gêneros Leitura e Análise.pdf
+9 ano - GênerosLeitura e Análise.pdf
+9 ano - História (1).pdf
+9 ano - História (2).pdf
+9 ano - História (3).pdf
+9 ano - História (4).pdf
+9 ano - História (5).pdf
+9 ano - História (6).pdf
+9 ano - História (7).pdf
+9 ano - História.pdf
+9 ano - Inglês (1).pdf
+9 ano - Inglês (2).pdf
+9 ano - Inglês (3).pdf
+9 ano - Inglês.pdf
+9 ano - Labuta no Brasil do século XX - LP.pdf
+9 ano - Língua Portuguesa (1).pdf
+9 ano - Língua Portuguesa (10).pdf
+9 ano - Língua Portuguesa (11).pdf
+9 ano - Língua Portuguesa (2).pdf
+9 ano - Língua Portuguesa (3).pdf
+9 ano - Língua Portuguesa (4).pdf
+9 ano - Língua Portuguesa (5).pdf
+9 ano - Língua Portuguesa (6).pdf
+9 ano - Língua Portuguesa (7).pdf
+9 ano - Língua Portuguesa (8).pdf
+9 ano - Língua Portuguesa (9).pdf
+9 ano - Língua Portuguesa.pdf
+9 ano - Manual de Experiências.pdf
+9 ano - Matemática (1).pdf
+9 ano - Matemática (10).pdf
+9 ano - Matemática (11).pdf
+9 ano - Matemática (12).pdf
+9 ano - Matemática (13).pdf
+9 ano - Matemática (14).pdf
+9 ano - Matemática (15).pdf
+9 ano - Matemática (16).pdf
+9 ano - Matemática (17).pdf
+9 ano - Matemática (18).pdf
+9 ano - Matemática (19).pdf
+9 ano - Matemática (2).pdf
+9 ano - Matemática (20).pdf
+9 ano - Matemática (21).pdf
+9 ano - Matemática (5).pdf
+9 ano - Matemática (6).pdf
+9 ano - Matemática (7).pdf
+9 ano - Matemática (8).pdf
+9 ano - Matemática (9).pdf
+9 ano - MATEMÁTICA - 2025.pdf
+9 ano - Matemática em questão.pdf
+9 ano - Matemática.pdf
+9 ano - Oficina de Negócios.pdf
+9 ano - Para além das fábricas trabalho modelos econômicos e sociedade - LP.pdf
+9 ano - Pelas janelas da mídia histórias recontadas.pdf
+9 ano - Questões de Matemática.pdf
+9 ano - Religião em diálogo (1).pdf
+9 ano - Religião em diálogo (2).pdf
+9 ano - Religião em diálogo (3).pdf
+9 ano - Religião em diálogo (4).pdf
+9 ano - Religião em diálogo.pdf
+9 ano - Sem fronteiras faces de um mundo globalizado.pdf
+9 ano - Às margens do sentir a mídia e a compreensão do outro.pdf
+"@
+
+# Transforma o texto em uma lista (array) e remove espaços extras
+$arquivos = $listaTexto -split "`r?`n" | Where-Object { $_ -ne "" } | ForEach-Object { $_.Trim() }
+
+# Cria a pasta de destino se não existir
+if (!(Test-Path ".\otimizar")) { 
+    New-Item -ItemType Directory -Path ".\otimizar" | Out-Null 
+}
+
+# Executa a cópia
+foreach ($nome in $arquivos) {
+    $caminhoOrigem = Join-Path ".\manuais_pdfs" $nome
+    if (Test-Path $caminhoOrigem) {
+        Copy-Item -Path $caminhoOrigem -Destination ".\otimizar\" -Force -Verbose
+    } else {
+        Write-Warning "Não encontrado: $nome"
+    }
+}
+
+Write-Host "Processo concluído! Pressione qualquer tecla para sair..."
+$null = [System.Console]::ReadKey()

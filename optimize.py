@@ -1,93 +1,92 @@
 import time
 import os
-import requests
-import re
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import Select
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from concurrent.futures import ThreadPoolExecutor
-import concurrent.futures
 import subprocess
+import concurrent.futures
+from concurrent.futures import ProcessPoolExecutor
 
+# --- CONFIGURAÇÕES ---
 PASTA_DOWNLOAD = os.path.join(os.getcwd(), "manuais_pdfs")
-MAX_WORKERS = 4 
-
-# --- CONFIGURAÇÕES DE OTIMIZAÇÃO ---
-PASTA_ORIGEM_OTIMIZACAO = PASTA_DOWNLOAD
 PASTA_DESTINO_OTIMIZACAO = os.path.join(os.getcwd(), "manuais_otimizados")
+# Caminho corrigido conforme sua instalação (10.06.0)
 CAMINHO_GHOSTSCRIPT = r"C:\Program Files\gs\gs10.06.0\bin\gswin64c.exe"
 MODO_COMPRESSAO = "/ebook"
+# Usa o número de processadores disponíveis para máxima performance
+MAX_WORKERS = os.cpu_count()
 
 os.makedirs(PASTA_DOWNLOAD, exist_ok=True)
 os.makedirs(PASTA_DESTINO_OTIMIZACAO, exist_ok=True)
 
-def comprimir_pdf(arquivo_entrada, arquivo_saida):
+def comprimir_pdf(caminhos):
+    """
+    Função que executa a compressão de um único arquivo.
+    Recebe uma tupla (caminho_entrada, caminho_saida).
+    """
+    entrada, saida = caminhos
     try:
+        tam_orig = os.path.getsize(entrada)
         cmd = [
             CAMINHO_GHOSTSCRIPT, "-sDEVICE=pdfwrite", "-dCompatibilityLevel=1.4",
             f"-dPDFSETTINGS={MODO_COMPRESSAO}", "-dNOPAUSE", "-dQUIET", "-dBATCH",
-            f"-sOutputFile={arquivo_saida}", arquivo_entrada
+            f"-sOutputFile={saida}", entrada
         ]
         subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-        return True
-    except:
-        return False
+        
+        tam_novo = os.path.getsize(saida)
+        economia_mb = (tam_orig - tam_novo) / (1024 * 1024)
+        reducao_pct = (1 - (tam_novo / tam_orig)) * 100 if tam_orig > 0 else 0
+        
+        return {
+            "sucesso": True,
+            "nome": os.path.basename(entrada),
+            "economia_mb": economia_mb,
+            "reducao_pct": reducao_pct
+        }
+    except Exception as e:
+        return {"sucesso": False, "nome": os.path.basename(entrada), "erro": str(e)}
 
-# --- BLOCO PRINCIPAL ---
 if __name__ == "__main__":
-    # --- OTIMIZAÇÃO DE PDFS ---
-    print("\n>>> INICIANDO OTIMIZADOR DE PDFS <<<")
-    print(f"Origem:  {PASTA_ORIGEM_OTIMIZACAO}")
+    print("\n>>> INICIANDO OTIMIZADOR DE PDFS (MODO PARALELO) <<<")
+    print(f"Origem:  {PASTA_DOWNLOAD}")
     print(f"Destino: {PASTA_DESTINO_OTIMIZACAO}")
-    print("-" * 50)
+    print(f"Workers: {MAX_WORKERS} (Processamento simultâneo)")
+    print("-" * 60)
 
     if not os.path.exists(CAMINHO_GHOSTSCRIPT):
-        print("X ERRO CRÍTICO: Ghostscript não encontrado!")
-        print(f"  Verifique o caminho: {CAMINHO_GHOSTSCRIPT}")
-        print("  Instale em: https://ghostscript.com/releases/gsdnld.html")
+        print(f"X ERRO CRÍTICO: Ghostscript não encontrado em: {CAMINHO_GHOSTSCRIPT}")
         exit()
 
-    arquivos_para_otimizar = [f for f in os.listdir(PASTA_ORIGEM_OTIMIZACAO) if f.lower().endswith('.pdf')]
-    total_arquivos_otimizar = len(arquivos_para_otimizar)
+    arquivos = [f for f in os.listdir(PASTA_DOWNLOAD) if f.lower().endswith('.pdf')]
     
-    if total_arquivos_otimizar == 0:
-        print("Nenhum arquivo PDF encontrado na pasta de origem para otimizar.")
+    if not arquivos:
+        print("Nenhum arquivo PDF encontrado para processar.")
     else:
-        sucessos_otimizacao = 0
-        economizado_total_mb = 0
+        tarefas = []
+        for nome in arquivos:
+            tarefas.append((
+                os.path.join(PASTA_DOWNLOAD, nome),
+                os.path.join(PASTA_DESTINO_OTIMIZACAO, nome)
+            ))
 
-        for i, nome_arq in enumerate(arquivos_para_otimizar, 1):
-            caminho_full_origem = os.path.join(PASTA_ORIGEM_OTIMIZACAO, nome_arq)
-            caminho_full_destino = os.path.join(PASTA_DESTINO_OTIMIZACAO, nome_arq)
+        sucessos = 0
+        total_economizado = 0
 
-            if not os.path.exists(caminho_full_origem):
-                print(f" [AVISO] Arquivo {nome_arq} não encontrado na origem, pulando otimização.")
-                continue
-
-            tam_orig = os.path.getsize(caminho_full_origem)
+        # O Image do fluxo de threads ajudaria a visualizar como os 4 workers pegam os arquivos da fila.
+        # 
+        with ProcessPoolExecutor(max_workers=MAX_WORKERS) as executor:
+            futuros = [executor.submit(comprimir_pdf, t) for t in tarefas]
             
-            print(f"[{i}/{total_arquivos_otimizar}] Otimizando: {nome_arq}...", end="\r")
-
-            if comprimir_pdf(caminho_full_origem, caminho_full_destino):
-                tam_novo = os.path.getsize(caminho_full_destino)
-                reducao = (1 - (tam_novo / tam_orig)) * 100
-                economia_mb = (tam_orig - tam_novo) / (1024 * 1024)
-                economizado_total_mb += economia_mb
-                
-                if tam_novo < tam_orig:
-                    print(f" [OK] {nome_arq} | -{reducao:.1f}% ({economia_mb:.2f} MB a menos)")
+            for i, futuro in enumerate(concurrent.futures.as_completed(futuros), 1):
+                res = futuro.result()
+                if res["sucesso"]:
+                    sucessos += 1
+                    total_economizado += max(0, res["economia_mb"])
+                    status = f"{res['reducao_pct']:.1f}% menor" if res['economia_mb'] > 0 else "Sem redução"
+                    print(f"[{i}/{len(arquivos)}] [OK] {res['nome']} | {status}")
                 else:
-                    print(f" [=]  {nome_arq} | Não houve redução significativa.")
-                
-                sucessos_otimizacao += 1
-            else:
-                print(f" [FALHA] Não foi possível otimizar {nome_arq}")
+                    print(f"[{i}/{len(arquivos)}] [FALHA] {res['nome']} | Erro: {res['erro']}")
 
-        print("-" * 50)
-        print(">>> PROCESSO DE OTIMIZAÇÃO FINALIZADO <<<")
-        print(f"Arquivos otimizados: {sucessos_otimizacao}/{total_arquivos_otimizar}")
-        print(f"Espaço total economizado: {economizado_total_mb:.2f} MB")
-        print(f"Verifique a pasta: {PASTA_DESTINO_OTIMIZACAO}")
+        print("-" * 60)
+        print(">>> RESUMO FINAL <<<")
+        print(f"Arquivos processados: {sucessos}/{len(arquivos)}")
+        print(f"Espaço total liberado: {total_economizado:.2f} MB")
+        print(f"Local: {PASTA_DESTINO_OTIMIZACAO}")
