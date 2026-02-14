@@ -4,7 +4,7 @@ setlocal
 :: -----------------------------------------------------------------------------
 :: CONFIGURACAO
 :: -----------------------------------------------------------------------------
-set "ALVO=C:\Users\user\Documents\HUANN\dev\download-material-educador\manuais_pdfs"
+SET "ALVO=%~dp0..\manuais_pdfs"
 
 echo Navegando para: %ALVO%
 cd /d "%ALVO%"

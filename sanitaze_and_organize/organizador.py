@@ -120,8 +120,8 @@ def organize_files(source_dir, output_dir):
     print(f"Verifique 'organizacao.log' para detalhes.")
 
 if __name__ == "__main__":
-    SOURCE_DIR = "./manuais_otimizados"
-    OUTPUT_DIR = "./saida"
+    SOURCE_DIR = "./manuais_pdfs"
+    OUTPUT_DIR = "./manuais_otimizados"
     
     # Gera lista_arquivos.txt conforme solicitado (apenas para registro)
     try:
