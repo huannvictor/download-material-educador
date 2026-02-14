@@ -1,10 +1,24 @@
-# Download Material Educador
+# Simplificando o Acesso ao Material Didático "Formando Cidadãos"
 
-Este projeto é uma coleção de scripts para baixar, otimizar e organizar materiais educacionais da editora "Formando Cidadãos".
+Este projeto automatiza o acesso e a organização dos materiais educacionais da editora "Formando Cidadãos", tornando a vida de professores, coordenadores e diretores mais fácil.
 
-## Descrição
+## O Desafio do Acesso Digital
 
-O objetivo principal deste projeto é automatizar o processo de download de materiais didáticos, como manuais e catálogos, e organizá-los de forma estruturada para fácil acesso e utilização.
+O portal oficial da "Formando Cidadãos", embora completo, pode ser um labirinto digital para educadores com conhecimento técnico limitado. A dificuldade em navegar, encontrar e baixar os materiais corretos gera frustração e desperdiça um tempo precioso que poderia ser usado no que realmente importa: a educação.
+
+## A Solução: Automação e Organização em 4 Passos
+
+Este repositório oferece uma solução completa para eliminar essa dor de cabeça. Com uma série de scripts inteligentes, transformamos o processo manual e complicado em uma tarefa simples e automatizada.
+
+### Como Funciona?
+
+1. **Download Automático:** O robô em `automation_download/` acessa o portal e baixa todos os documentos necessários em formato PDF, sem que você precise clicar em dezenas de links.
+
+2. **Organização Inteligente por Kits:** Usando uma tarefa de Inteligência Artificial (descrita em `ai/`), os materiais são automaticamente organizados em pastas separadas por "Kit" (Kit A, Kit B, etc.), seguindo a estrutura do **Catálogo 2026**. Chega de adivinhar qual arquivo pertence a qual coleção!
+
+3. **Otimização para a Nuvem:** Os scripts em `optimizer/` comprimem e otimizam os PDFs, reduzindo o tamanho dos arquivos para facilitar o compartilhamento e o armazenamento em serviços de nuvem como Google Drive ou Dropbox.
+
+4. **Compartilhamento Fácil:** Ao final do processo, você terá um link único para a pasta na nuvem com todo o material organizado, pronto para ser compartilhado via WhatsApp ou qualquer outro meio de comunicação.
 
 ## Como Usar
 
@@ -17,11 +31,24 @@ O objetivo principal deste projeto é automatizar o processo de download de mate
 
     Este comando criará o ambiente virtual se ele não existir, o ativará e instalará as bibliotecas necessárias a partir do `requirements.txt`.
 
-2. **Download:** Execute os scripts em `automation_download/` para baixar os materiais. Pode ser necessário ajustar os scripts para lidar com logins ou alterações na estrutura do site.
+2. **Execução dos Passos:**
+    Siga a ordem dos scripts nas pastas `automation_download/`, `optimizer/` e `sanitaze_and_organize/` para executar o fluxo completo.
 
-3. **Otimização:** Utilize os scripts em `optimizer/` para processar e otimizar os arquivos baixados.
+## Estrutura do Projeto
 
-4. **Organização:** Rode os scripts em `sanitaze_and_organize/` para arrumar os arquivos em uma estrutura de pastas limpa.
+```text
+.
+├── ai/                     # Tarefas e prompts para IA (Inteligência Artificial)
+├── automation_download/    # Scripts para download de materiais
+├── files/                  # Arquivos de referência, como o catálogo
+├── optimizer/              # Scripts para otimização de arquivos
+├── sanitaze_and_organize/  # Scripts para limpeza e organização final
+├── venv/                   # Ambiente virtual Python
+├── .gitignore
+├── check_env.ps1           # Script para configurar o ambiente
+├── README.md
+└── requirements.txt        # Lista de dependências Python
+```
 
 ## Dependências
 
@@ -34,36 +61,3 @@ beautifulsoup4
 PyPDF2
 fitz
 ```
-
-## Estrutura do Projeto
-
-```text
-.
-├── ai/                     # Tarefas e prompts para IA
-│   ├── task_organize_by_kit.md
-│   └── task_organize_by_subject.md
-├── automation_download/    # Scripts para download de materiais
-│   ├── script.py
-│   └── script_async.py
-├── files/                  # Arquivos baixados e catálogos
-│   ├── Catalogo_2026.pdf
-│   └── ...
-├── optimizer/              # Scripts para otimização de arquivos
-│   ├── otimizador.py
-│   └── otimizadorv2.py
-├── sanitaze_and_organize/  # Scripts para limpeza e organização
-│   ├── organizador.py
-│   └── sanitize_manuais_pdfs.bat
-├── venv/                   # Ambiente virtual Python
-├── .gitignore
-├── check_env.ps1           # Script para configurar o ambiente
-├── README.md
-└── requirements.txt        # Lista de dependências Python
-```
-
-## Tarefas de IA (Inteligência Artificial)
-
-A pasta `ai/` contém descrições detalhadas de tarefas que podem ser executadas por um modelo de linguagem para automatizar a organização dos arquivos.
-
-- `task_organize_by_kit.md`: Descreve a tarefa de organizar os manuais em "Kits" (A, B, C, etc.) com base em regras de negócio específicas.
-- `task_organize_by_subject.md`: Descreve a tarefa de organizar os manuais por disciplina acadêmica (Matemática, Português, etc.), analisando o conteúdo dos PDFs.
