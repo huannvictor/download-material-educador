@@ -6,51 +6,64 @@ Este projeto é uma coleção de scripts para baixar, otimizar e organizar mater
 
 O objetivo principal deste projeto é automatizar o processo de download de materiais didáticos, como manuais e catálogos, e organizá-los de forma estruturada para fácil acesso e utilização.
 
-## Funcionalidades
+## Como Usar
 
-- **Download Automatizado:** Scripts para baixar conteúdo diretamente do portal "Formando Cidadãos".
-- **Otimização de Arquivos:** Scripts para otimizar os arquivos baixados (provavelmente PDFs).
-- **Organização de Materiais:** Scripts para renomear, limpar e organizar os materiais em uma estrutura de pastas lógica, seja por matéria ou por kit.
+1. **Configuração do Ambiente:**
+    Para garantir que o ambiente virtual (`venv`) esteja configurado e as dependências instaladas, execute o script `check_env.ps1` no PowerShell:
+
+    ```powershell
+    .\check_env.ps1
+    ```
+
+    Este comando criará o ambiente virtual se ele não existir, o ativará e instalará as bibliotecas necessárias a partir do `requirements.txt`.
+
+2. **Download:** Execute os scripts em `automation_download/` para baixar os materiais. Pode ser necessário ajustar os scripts para lidar com logins ou alterações na estrutura do site.
+
+3. **Otimização:** Utilize os scripts em `optimizer/` para processar e otimizar os arquivos baixados.
+
+4. **Organização:** Rode os scripts em `sanitaze_and_organize/` para arrumar os arquivos em uma estrutura de pastas limpa.
+
+## Dependências
+
+As dependências do projeto estão listadas no arquivo `requirements.txt`:
+
+```text
+selenium
+requests
+beautifulsoup4
+PyPDF2
+fitz
+```
 
 ## Estrutura do Projeto
 
 ```text
 .
-├── automation_download/  # Scripts para download de materiais
+├── ai/                     # Tarefas e prompts para IA
+│   ├── task_organize_by_kit.md
+│   └── task_organize_by_subject.md
+├── automation_download/    # Scripts para download de materiais
 │   ├── script.py
 │   └── script_async.py
-├── files/                # Arquivos baixados e catálogos
+├── files/                  # Arquivos baixados e catálogos
 │   ├── Catalogo_2026.pdf
 │   └── ...
-├── optimizer/            # Scripts para otimização de arquivos
+├── optimizer/              # Scripts para otimização de arquivos
 │   ├── otimizador.py
 │   └── otimizadorv2.py
-├── sanitaze_and_organize/ # Scripts para limpeza e organização
+├── sanitaze_and_organize/  # Scripts para limpeza e organização
 │   ├── organizador.py
-│   ├── organize_pdfs.py
 │   └── sanitize_manuais_pdfs.bat
+├── venv/                   # Ambiente virtual Python
 ├── .gitignore
-├── task_organize_by_kit.md     # Descrição da tarefa de organização por kit
-└── task_organize_by_subject.md # Descrição da tarefa de organização por matéria
+├── check_env.ps1           # Script para configurar o ambiente
+├── README.md
+└── requirements.txt        # Lista de dependências Python
 ```
 
-## Como Usar
+## Tarefas de IA (Inteligência Artificial)
 
-1. **Download:** Execute os scripts em `automation_download/` para baixar os materiais. Pode ser necessário ajustar os scripts para lidar com logins ou alterações na estrutura do site.
-2. **Otimização:** Utilize os scripts em `optimizer/` para processar e otimizar os arquivos baixados.
-3. **Organização:** Rode os scripts em `sanitaze_and_organize/` para arrumar os arquivos em uma estrutura de pastas limpa.
+A pasta `ai/` contém descrições detalhadas de tarefas que podem ser executadas por um modelo de linguagem para automatizar a organização dos arquivos.
 
-## Dependências
-
-Este projeto utiliza principalmente Python. As dependências exatas podem ser encontradas no início de cada script (`.py`). As bibliotecas comuns para este tipo de projeto são:
-
-- `requests`
-- `BeautifulSoup4`
-- `PyPDF2`
-- `selenium`
-
-Certifique-se de instalar as bibliotecas necessárias antes de executar os scripts.
-
-```bash
-pip install -r requirements.txt
-```
+- `task_organize_by_kit.md`: Descreve a tarefa de organizar os manuais em "Kits" (A, B, C, etc.) com base em regras de negócio específicas.
+- `task_organize_by_subject.md`: Descreve a tarefa de organizar os manuais por disciplina acadêmica (Matemática, Português, etc.), analisando o conteúdo dos PDFs.
